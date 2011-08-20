@@ -1,0 +1,18 @@
+{
+    "extName" : {
+        "message" : "WCPE Playlist",
+        "description" : "Name of the extension"
+    },
+    "extDescription" : {
+        "message" : "Shows notifications of what's playing on WCPE",
+        "description" : "Description of the extension"
+    },
+    "extDisabledTitle" : {
+        "message" : "Notifications disabled",
+        "description" : "Disabled title"
+    },
+    "extOnlineTitle" : {
+        "message" : "Notifications enabled",
+        "description" : "Enabled title"
+    }
+}

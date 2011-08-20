@@ -1,0 +1,114 @@
+body {
+    font-family: sans-serif;
+    font-size: 0.75em;
+    overflow: hidden;
+    color: black;
+    min-width: 300px;
+    padding: 5px;
+    margin: 0px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body.online {
+    background-color: white;
+}
+
+body.offline {
+    background-color: #eee;
+}
+
+#builders .builder {
+    margin: 5px 0px;
+    border: 1px solid gray;
+    -webkit-border-radius: 2px;
+    padding: 3px;
+}
+
+#builders .success {
+    background-color: #ddffdd;
+}
+
+#builders .failure {
+    background-color: #ffe0e0;
+}
+
+#builders .warnings {
+    background-color: #f7ce80;
+}
+
+#builders .exception {
+    background-color: #d1a9c7;
+}
+
+#builders .offline {
+    opacity: 0.25;
+}
+
+#builders .building {
+    background-color: #ddeeff;
+    -webkit-box-shadow: 1px 1px 1px #333;
+}
+
+#builders table {
+    border-spacing: 0px;
+    width: 100%;
+}
+
+#builders .revision {
+    text-align: right;
+}
+
+#builders .eta {
+    text-align: center;
+    width: 100%;
+    color: #999;
+}
+
+#builders .steps table {
+    width: auto;
+    border-collapse: collapse;
+}
+
+#builders .steps td {
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+#builders .steps .pending {
+    background-color: white;
+}
+
+#builders .steps .success {
+    background-color: lightgreen;
+}
+
+#builders .steps .failure {
+    background-color: pink;
+}
+
+#builders .steps .warnings {
+    background-color: orange;
+}
+
+#builders .steps .exception {
+    background-color: purple;
+}
+
+#builders .steps .running {
+    background-color: #ffffaa;
+}
+
+#date {
+    font-size: 0.5;
+    color: #aaa;
+}
