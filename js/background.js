@@ -4,12 +4,12 @@
  * Copyright 2011, Peter Parente. All rights reserved.
  * http://creativecommons.org/licenses/BSD/
  */
-/*global $ jstz*/
+/*global $ jstz webkitNotifications*/
 var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 var sched = null;
 var lastSong = null;
 var currentSong = null;
-var cols = ['segment', 'time', 'link', 'composer', 'work', 'performer', 'label', 'stock', 'barcode'];
+var cols = ['program', 'time', 'link', 'composer', 'work', 'performer', 'label', 'stock', 'barcode'];
 
 function parseSchedule(html, date, url) {
     html = $(html);
@@ -116,7 +116,9 @@ function buildNotification(song) {
 
 function computeCurrentSong(date) {
     // find current song
-    var song, prevSong = null;
+    var song, 
+        prevSong = null, 
+        program = '';
     for(var i=0, l=sched.items.length; i<l; i++) {
         song = sched.items[i];
         if(date < song.time) {
@@ -124,6 +126,13 @@ function computeCurrentSong(date) {
             song = sched.items[Math.max(i-1, 0)];
             break;
         }
+        if(song.program) {
+            program = song.program;
+        }
+    }
+    // adopt last encountered program id
+    if(!song.program) {
+        song.program = program;
     }
     currentSong = song;
     return currentSong;
