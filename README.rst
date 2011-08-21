@@ -3,7 +3,7 @@ WCPE Playlist Extension
 =======================
 
 :Author: Peter Parente
-:Description: Chrome extension that shows notifications of what's currently playing on `WCPE 89.7 FM, The Classical Station__`.
+:Description: Chrome extension that shows notifications of what's currently playing on `WCPE 89.7 FM, The Classical Station`__.
 
 __ http://www.wcpe.org/
 
