@@ -1,114 +1,41 @@
+html {
+    border-width: 0px;
+    margin: 0em;
+    padding: 0em;
+}
 body {
     font-family: sans-serif;
-    font-size: 0.75em;
-    overflow: hidden;
-    color: black;
-    min-width: 300px;
-    padding: 5px;
-    margin: 0px;
+    font-size: 10pt;
+    color: #f0f0f0;
+    border: 0;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(96,108,136,1)), color-stop(100%,rgba(63,76,107,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: linear-gradient(top, rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C */
 }
-
 a {
-    color: black;
-    text-decoration: none;
+    color: white;
 }
-
-a:hover {
-    text-decoration: underline;
+img {
+    width: 64px;
+    height: 64px;
 }
-
-body.online {
-    background-color: white;
-}
-
-body.offline {
-    background-color: #eee;
-}
-
-#builders .builder {
-    margin: 5px 0px;
-    border: 1px solid gray;
-    -webkit-border-radius: 2px;
-    padding: 3px;
-}
-
-#builders .success {
-    background-color: #ddffdd;
-}
-
-#builders .failure {
-    background-color: #ffe0e0;
-}
-
-#builders .warnings {
-    background-color: #f7ce80;
-}
-
-#builders .exception {
-    background-color: #d1a9c7;
-}
-
-#builders .offline {
-    opacity: 0.25;
-}
-
-#builders .building {
-    background-color: #ddeeff;
-    -webkit-box-shadow: 1px 1px 1px #333;
-}
-
-#builders table {
-    border-spacing: 0px;
+table {
     width: 100%;
 }
-
-#builders .revision {
-    text-align: right;
+td {
+    padding: 0.5em;
 }
-
-#builders .eta {
-    text-align: center;
-    width: 100%;
-    color: #999;
+td div {
+    margin-top: 0em;
+    margin-bottom: 0.1em;
 }
-
-#builders .steps table {
-    width: auto;
-    border-collapse: collapse;
+#work {
+    font-weight: bold;
+    font-size: 12pt;
 }
-
-#builders .steps td {
-    width: 10px;
-    height: 10px;
-    border: 1px solid black;
-    cursor: pointer;
+#footer {
+    font-size: 8pt;
 }
-
-#builders .steps .pending {
-    background-color: white;
-}
-
-#builders .steps .success {
-    background-color: lightgreen;
-}
-
-#builders .steps .failure {
-    background-color: pink;
-}
-
-#builders .steps .warnings {
-    background-color: orange;
-}
-
-#builders .steps .exception {
-    background-color: purple;
-}
-
-#builders .steps .running {
-    background-color: #ffffaa;
-}
-
-#date {
-    font-size: 0.5;
-    color: #aaa;
+#footer a {
+    padding-right: 1em;
 }

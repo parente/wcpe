@@ -11,20 +11,27 @@ var lastSong = null;
 var currentSong = null;
 var cols = ['segment', 'time', 'link', 'composer', 'work', 'performer', 'label', 'stock', 'barcode'];
 
-function parseSchedule(html, date) {
-    $('#tmp').html($(html));
+function parseSchedule(html, date, url) {
+    html = $(html);
     // grab date
-    var pageDate = $('span.date').text().trim();
+    var pageDate = $('span.date', html).text().trim();
     pageDate = pageDate.substr(0, pageDate.length-1);
     pageDate = new Date(pageDate);
+    if(pageDate.getDay() < date.getDay()) {
+        console.warn('fetched old schedule:', pageDate);
+        // old data, ignore and wait for next tick
+        sched = null;
+        return;
+    }
     // parse schedule
     sched = {
         items : [],
-        date : pageDate
+        date : pageDate,
+        url : url
     };
     // schedule table
     sched.items = [];
-    var table = $('table').not('[bgcolor]')[0];
+    var table = $('table', html).not('[bgcolor]')[0];
     // nested loop to avoid missing cells
     $('tr', table).map(function() {
         var tr = $(this);
@@ -37,7 +44,7 @@ function parseSchedule(html, date) {
                 // grab url
                 val = $('a', this).attr('href');
             } else {
-                val = $(this).html();
+                val = $(this).text();
             }
             if(name === 'time') {
                 // store date object
@@ -64,47 +71,44 @@ function parseSchedule(html, date) {
 }
 
 function fetchSchedule(date) {
+    var url = 'http://wcpe.org/music/'+days[date.getDay()]+'.shtml';
     $.ajax({
-        url: 'http://www.wcpe.org/music/'+days[date.getDay()]+'.shtml',
+        url: url,
         dataType: 'html'
     }).done(function(html) {
-        parseSchedule(html, date);
+        parseSchedule(html, date, url);
     });
 }
 
 function buildNotification(song) {
-    console.log('building notification', song);
     var def = new $.Deferred();
-    var resolve = function(img) {
-        var notice = webkitNotifications.createNotification(
-            img || '',
-            song.work,
-            song.composer
+    var resolve = function() {
+        var notice =  webkitNotifications.createHTMLNotification(
+            '../html/notice.html'
         );
-        console.log('resolving notification');
         def.resolve(notice);
     };
 
     if(!song.link) {
+        // default icon
         resolve();
         return def;
     }
 
-    // fetch icon
     $.ajax({
         url : song.link,
         dataType : 'html'
     }).fail(function() {
+        // default icon
         resolve();
     }).done(function(html) {
+        // album art as icon
         html = $(html).not('script').not('link');
-        var img = $('img[src*="covers"]', html).attr('src');
-        if(img) {
-            img = 'http://www.arkivmusic.com/'+img;
-        } else {
-            img = '';
+        var src = $('img[src*="covers"]', html).attr('src');
+        if(src) {
+            song.icon = 'http://arkivmusic.com/'+src;
         }
-        resolve(img);
+        resolve();
     });
 
     return def;
@@ -130,12 +134,11 @@ function showCurrentSong(date) {
     // if we exit without a hit, last song is current
     if(song !== lastSong) {
         buildNotification(song).done(function(notice) {
-            console.log('showing notice');
             notice.show();
             lastSong = song;
             setTimeout(function() {
                 notice.cancel();                 
-            }, 5000);
+            }, 8000);
         });
     }
 }

@@ -6,6 +6,26 @@
     <script src="../js/jquery-1.6.2.min.js"></script>
     <script src="../js/notice.js"></script>
   </head>
-  <body onload="onLoad();">
+  <body onload="onLoad()">
+    <table>
+        <tbody>
+            <tr>
+                <td><img src="" id="icon" /></td>
+                <td>
+                    <div id="work"></div>
+                    <div id="composer"></div>
+                    <div id="performer"></div>
+                </td>
+            </tr>
+            <tr id="footer">
+                <td></td>
+                <td>
+                    <a href="#" id="listen" onclick="onListen()">Listen</a>
+                    <a href="#" id="schedule" onclick="onSchedule()"></a>
+                    <a href="#" id="purchase" onclick="onPurchase()"></a> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
   </body>
 </html>

@@ -2,20 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Buildbot Button Options</title>
+    <title>WCPE 89.7</title>
     <link rel="stylesheet" type="text/css" href="../css/options.css" />
     <script type="application/javascript" src="../js/options.js"></script>
   </head>
-  <body>
+  <body onload="onLoad()">
     <div class="box">
-      <h1>Buildbot Button Options</h1>
+      <h1>WCPE Playlist Options</h1>
       <form target="#" onsubmit="return false;">
-        <label for="baseUrl">Base URL</label>
-        <input type="text" id="baseUrl" title="URL to the root of the buildbot server"/><br clear="all"/>
-        <label for="frequency">Frequency</label>
-        <input type="text" id="frequency" title="Wait this many seconds between server queries"/><br clear="all"/>
-        <label for="sounds">Sounds</label>
-        <input type="checkbox" id="sounds" title="Play sounds on build start, success, or failure"/><br clear="all"/>
+        <label for="hide_after">Hide after</label>
+        <input type="text" id="hide_after" title="Wait this many seconds before hiding notices"/><br clear="all"/>
+        <label for="speech">Speak notices</label>
+        <input type="checkbox" id="speech" title="Speak songs and composers"/><br clear="all"/>
         <div class="actions">
           <span id="status" style="visibility: hidden;">Options saved</span>
           <button type="submit" onclick="onSave(); window.close();">OK</button>

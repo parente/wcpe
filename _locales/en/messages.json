@@ -14,5 +14,21 @@
     "extOnlineTitle" : {
         "message" : "Notifications enabled",
         "description" : "Enabled title"
+    },
+    "extPurchaseLink" : {
+        "message" : "Purchase",
+        "description" : "Purchase link text"
+    },
+    "extScheduleLink" : {
+        "message" : "Schedule",
+        "description" : "Full schedule link text"
+    },
+    "extListenLink" : {
+        "message" : "Listen",
+        "description" : "Listen link text"
+    },
+    "extRequestsLink" : {
+        "message" : "Requests",
+        "description" : "Requests link text"
     }
 }
