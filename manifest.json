@@ -18,6 +18,6 @@
     "notifications",
     "tabs",
     "http://wcpe.org/*",
-    "http://arkivmusic.com/*"
+    "http://*.arkivmusic.com/*"
   ]
 }
