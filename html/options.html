@@ -4,20 +4,33 @@
     <meta charset="utf-8" />
     <title>WCPE Playlist</title>
     <link rel="stylesheet" type="text/css" href="../css/options.css" />
-    <script type="application/javascript" src="../js/options.js"></script>
+    <script src="../js/jquery-1.6.2.min.js"></script>
+    <script src="../js/options.js"></script>
   </head>
   <body onload="onLoad()">
     <div class="box">
-      <h1>WCPE Playlist Options</h1>
+      <h1><img src="../png/audio-x-generic-64.png" /> WCPE Playlist Options</h1>
       <form target="#" onsubmit="return false;">
-        <label for="hide_after">Hide after</label>
-        <input type="text" id="hide_after" title="Wait this many seconds before hiding notices"/><br clear="all"/>
-        <label for="speech">Speak notices</label>
-        <input type="checkbox" id="speech" title="Speak songs and composers"/><br clear="all"/>
+        <table> 
+          <tbody>
+            <tr>
+              <td class="labels"><label for="notices">Notices</label></td>
+              <td><input type="checkbox" id="notices" /> Show desktop notifications</td>
+            </tr>
+            <tr>
+              <td class="labels"><label for="hide_after">Hide after</label></td>
+              <td><input type="number" min="1" step="1" value="8" id="hide_after" title="Wait this many seconds before hiding notices"/> seconds</td>
+            </tr>
+            <tr>
+              <td class="labels"><label for="speech">Announcements</label></td>
+              <td><input type="checkbox" id="speech" /> Speak songs and composers</td>
+            </tr>
+          </tbody>
+        </table>
         <div class="actions">
-          <span id="status" style="visibility: hidden;">Options saved</span>
-          <button type="submit" onclick="onSave(); window.close();">OK</button>
-          <button type="cancel" onclick="window.close();">Cancel</button>
+          <button type="submit" onclick="onSave();">Save</button>
+          <button type="cancel" onclick="window.close();">Close</button>
+          <span id="status" style="display: none">Options saved</span>
         </div>
       </form>
     </div>

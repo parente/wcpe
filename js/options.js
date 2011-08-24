@@ -1,39 +1,24 @@
 /*
- * Buildbot Button Chrome Extension
+ * WCPE Chrome Playlist Extension
  *
- * Copyright 2010, Peter Parente. All rights reserved.
+ * Copyright 2011, Peter Parente. All rights reserved.
  * http://creativecommons.org/licenses/BSD/
  */
-var token = null;
-
 function onSave() {
-    var url = document.getElementById('baseUrl').value;
-    if(url.charAt(url.length-1) == '/') {
-        // strip trailing /
-        url = url.substr(0, url.length-1)
-    }
-    localStorage['baseUrl'] = url;
-    localStorage['frequency'] = document.getElementById('frequency').value;
-    localStorage['sounds'] = document.getElementById('sounds').checked;
-    _showStatus();
+    localStorage.notices = $('#notices').attr('checked') === 'checked';
+    localStorage.hideAfter = $('#hide_after').val();
+    localStorage.speech = $('#speech').attr('checked') === 'checked';
+    showStatus();
 }
 
-function _showStatus() {
-    var node = document.getElementById('status');
-    node.style.visibility = '';
-    if(token) clearTimeout(token);
-    token = setTimeout(function() {
-        node.style.visibility = 'hidden';
-        token = null;
-    }, 3000);
-    var bg = chrome.extension.getBackgroundPage();
-    bg.scheduleUpdate(true);
+function showStatus() {
+    $('#status').fadeIn(300).delay(3000).fadeOut(300);
 }
 
-window.onload = function() {
-    document.getElementById('baseUrl').value = localStorage['baseUrl'] || '';
-    document.getElementById('frequency').value = localStorage['frequency'] || '30';
-    if(localStorage['sounds'] == 'true') {
-        document.getElementById('sounds').checked = true;
-    }
+function onLoad() {
+    var tmp = localStorage.notices === 'true';
+    $('#notices')[(tmp ? 'attr' : 'removeAttr')]('checked',true);
+    $('#hide_after').val(localStorage.hideAfter);
+    tmp = localStorage.speech === 'true';
+    $('#speech')[(tmp ? 'attr' : 'removeAttr')]('checked',true);
 }

@@ -1,0 +1,46 @@
+body {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    overflow: hidden;
+    color: black;
+    background-color: white;
+    padding: 0em 1em;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+img {
+    vertical-align: middle;
+    margin-right: 1em;
+}
+
+table {
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+label {
+    font-weight: bold;
+}
+
+td {
+    padding: 1em;
+    width: 90%;
+}
+
+td.labels {
+    width: 10%;
+    text-align: right;
+}
+
+.actions {
+    margin-left: 1em;
+}
+
+input[type="number"] {
+    width: 50px;
+}

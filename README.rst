@@ -11,10 +11,7 @@ Todo
 ====
 
 * Support other timezones
-* Options page
 * speak.js option
-* Enable/disable
-* Show last notice
 * Localization
 * Icons
 

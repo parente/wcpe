@@ -134,20 +134,16 @@ function computeCurrentSong(date) {
     if(!song.program) {
         song.program = program;
     }
-    currentSong = song;
-    return currentSong;
+    return song;
 }
 
-function showCurrentSong(date) {
-    var song = computeCurrentSong(date);
-    // if we exit without a hit, last song is current
-    if(song !== lastSong) {
+function showCurrentSong(song) {
+    if(localStorage.notices === 'true') {
         buildNotification(song).done(function(notice) {
             notice.show();
-            lastSong = song;
             setTimeout(function() {
-                notice.cancel();                 
-            }, 8000);
+                notice.cancel();
+            }, localStorage.hideAfter * 1000);
         });
     }
 }
@@ -165,11 +161,27 @@ function onTick() {
         fetchSchedule(d);
     } else {
         // show the current song
-        showCurrentSong(d);
+        var song = computeCurrentSong(d);
+        console.log(song);
+        currentSong = song;
+        if(song !== lastSong) {
+            lastSong = song;
+            showCurrentSong(song);
+        }
     }
 }
 
+function initSettings() {
+    var tmp = localStorage.notices;
+    localStorage.notices = (tmp === undefined) ? true : (tmp === 'true');
+    tmp = localStorage.hideAfter;
+    localStorage.hideAfter = (tmp === undefined) ? 8 : tmp;
+    tmp = localStorage.speech;
+    localStorage.speech = (tmp === undefined) ? false : (tmp === 'true');
+}
+
 function onLoad() {
+    initSettings();
     onTick();
     setInterval(onTick, 30000);
 }

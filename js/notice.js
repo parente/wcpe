@@ -21,8 +21,14 @@ function onListen() {
     chrome.tabs.create({url : PLS_URL});
 }
 function onLoad() {
-    sched_url = chrome.extension.getBackgroundPage().sched.url;
-    song = chrome.extension.getBackgroundPage().currentSong;
+    $('#busy').text(chrome.i18n.getMessage('extBusyText'));
+    var page = chrome.extension.getBackgroundPage();
+    if(!page.sched || !page.sched.url || !page.currentSong) {
+        setTimeout(onLoad, 3000);
+        return;
+    }
+    sched_url = page.sched.url;
+    song = page.currentSong;
     $('#icon').attr('src', song.icon || ICON_URL);
     $('#work').text(song.work);
     $('#composer').text(song.composer);
@@ -31,4 +37,6 @@ function onLoad() {
     $('#schedule').text(chrome.i18n.getMessage('extScheduleLink'));
     var key = song.link ? 'extPurchaseLink' : 'extRequestsLink';
     $('#purchase').text(chrome.i18n.getMessage(key));
+    $('#busy').hide();
+    $('#notice').show();
 }
