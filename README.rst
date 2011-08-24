@@ -28,3 +28,7 @@ jQuery 1.6.2
 Copyright (c) 2011, The jQuery Project
 All rights reserved.
 http://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt
+
+speak.js
+Copyright (c) 2011, Alon Zakai
+https://github.com/kripken/speak.js

@@ -146,6 +146,10 @@ function showCurrentSong(song) {
             }, localStorage.hideAfter * 1000);
         });
     }
+
+    if(localStorage.speech === 'true') {
+        speak(song.work + ' by ' + song.composer + '. Performed by ' + song.performer, { wordgap: 10 });
+    }
 }
 
 function onTick() {
@@ -162,7 +166,6 @@ function onTick() {
     } else {
         // show the current song
         var song = computeCurrentSong(d);
-        console.log(song);
         currentSong = song;
         if(song !== lastSong) {
             lastSong = song;
