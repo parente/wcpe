@@ -3,12 +3,12 @@
   "version": "0.1",
   "description": "__MSG_extDescription__",
   "icons" : {
-    "16" : "png/audio-x-generic-16.png",
-    "32" : "png/audio-x-generic-32.png",
-    "64" : "png/audio-x-generic-64.png"
+    "16" : "png/radio16.png",
+    "48" : "png/radio48.png",
+    "128" : "png/radio128.png"
   },
   "browser_action": {
-    "default_icon": "png/audio-x-generic-16.png",
+    "default_icon": "png/radio16.png",
     "default_popup" : "html/notice.html",
     "default_title" : "__MSG_extName__"
   },
@@ -18,6 +18,7 @@
   "permissions": [
     "notifications",
     "tabs",
+    "background",
     "http://wcpe.org/*",
     "http://*.arkivmusic.com/*"
   ]
