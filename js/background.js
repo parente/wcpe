@@ -33,11 +33,11 @@ function parseSchedule(html, date, url) {
     sched.items = [];
     var table = $('table', html).not('[bgcolor]')[0];
     // nested loop to avoid missing cells
-    $('tr', table).map(function() {
+    $('tr', table).each(function() {
         var tr = $(this);
         var item = {};
         var i = 0;
-        $('td', tr).map(function() {
+        $('td', tr).each(function() {
             var name = cols[i];
             var val;
             if(name === 'link') {
@@ -49,8 +49,14 @@ function parseSchedule(html, date, url) {
             if(name === 'time') {
                 // store date object
                 var time = val.split(':');
+                console.log(time);
                 var hr = parseInt(time[0], 10);
                 var min = parseInt(time[1], 10);
+                if(isNaN(hr) || isNaN(min)) {
+                    // bad row, ignore
+                    i = 0;
+                    return false;
+                }
                 val = new Date(
                     pageDate.getFullYear(),
                     pageDate.getMonth(),
