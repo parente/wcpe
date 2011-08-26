@@ -9,7 +9,7 @@ var song = null;
 var sched_url = null;
 var REQUESTS_URL = 'http://www.wcpe.org/features_request.shtml#request';
 var PLS_URL = 'http://www.ibiblio.org/wcpe/wcpe.pls';
-var ICON_URL = '../png/audio-x-generic-64.png';
+var ICON_URL = '../png/radio64.png';
 
 function onPurchase() {
     chrome.tabs.create({url : song.link || REQUESTS_URL});
