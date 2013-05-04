@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <title>WCPE Playlist</title>
     <link rel="stylesheet" type="text/css" href="../css/options.css" />
-    <script src="../js/jquery-1.6.2.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
     <script src="../js/options.js"></script>
   </head>
-  <body onload="onLoad()">
+  <body>
     <div class="box">
       <h1><img src="../png/radio64.png" /> WCPE Playlist Options</h1>
       <form target="#" onsubmit="return false;">
-        <table> 
+        <table>
           <tbody>
             <tr>
               <td class="labels"><label for="notices">Notices</label></td>
@@ -28,8 +28,8 @@
           </tbody>
         </table>
         <div class="actions">
-          <button type="submit" onclick="onSave();">Save</button>
-          <button type="cancel" onclick="window.close();">Close</button>
+          <button type="submit">Save</button>
+          <button type="cancel">Close</button>
           <span id="status" style="display: none">Options saved</span>
         </div>
       </form>

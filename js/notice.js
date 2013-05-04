@@ -1,7 +1,7 @@
 /*
  * WCPE Chrome Playlist Extension
  *
- * Copyright 2011, Peter Parente. All rights reserved.
+ * Copyright 2011, 2013 Peter Parente. All rights reserved.
  * http://creativecommons.org/licenses/BSD/
  */
 /*global $ jstz*/
@@ -39,4 +39,10 @@ function onLoad() {
     $('#purchase').text(chrome.i18n.getMessage(key));
     $('#busy').hide();
     $('#notice').show();
+
+    $('#listen').on('click', onListen);
+    $('#schedule').on('click', onSchedule);
+    $('#purchase').on('click', onPurchase);
 }
+
+$(onLoad);

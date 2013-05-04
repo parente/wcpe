@@ -1,7 +1,7 @@
 /*
  * WCPE Chrome Playlist Extension
  *
- * Copyright 2011, Peter Parente. All rights reserved.
+ * Copyright 2011, 2013 Peter Parente. All rights reserved.
  * http://creativecommons.org/licenses/BSD/
  */
 /*global $ jstz webkitNotifications*/
@@ -49,7 +49,6 @@ function parseSchedule(html, date, url) {
             if(name === 'time') {
                 // store date object
                 var time = val.split(':');
-                console.log(time);
                 var hr = parseInt(time[0], 10);
                 var min = parseInt(time[1], 10);
                 if(isNaN(hr) || isNaN(min)) {
@@ -61,7 +60,7 @@ function parseSchedule(html, date, url) {
                     pageDate.getFullYear(),
                     pageDate.getMonth(),
                     pageDate.getDate(),
-                    hr, 
+                    hr,
                     min
                 );
             }
@@ -77,12 +76,14 @@ function parseSchedule(html, date, url) {
 }
 
 function fetchSchedule(date) {
-    var url = 'http://wcpe.org/music/'+days[date.getDay()]+'.shtml';
+    var url = 'http://theclassicalstation.org/music/'+days[date.getDay()]+'.shtml';
     $.ajax({
         url: url,
         dataType: 'html'
     }).done(function(html) {
         parseSchedule(html, date, url);
+    }).fail(function(err) {
+        console.error(err);
     });
 }
 
@@ -105,14 +106,16 @@ function buildNotification(song) {
         url : song.link,
         dataType : 'html'
     }).fail(function() {
+        console.warn('failed to fetch arkivmusic');
         // default icon
         resolve();
     }).done(function(html) {
         // album art as icon
         html = $(html).not('script').not('link');
         var src = $('img[src*="covers"]', html).attr('src');
+        console.debug(src);
         if(src) {
-            song.icon = 'http://arkivmusic.com/'+src;
+            song.icon = src;
         }
         resolve();
     });
@@ -122,8 +125,8 @@ function buildNotification(song) {
 
 function computeCurrentSong(date) {
     // find current song
-    var song, 
-        prevSong = null, 
+    var song,
+        prevSong = null,
         program = '';
     for(var i=0, l=sched.items.length; i<l; i++) {
         song = sched.items[i];
@@ -159,7 +162,7 @@ function showCurrentSong(song) {
 }
 
 function onTick() {
-    console.log('tick');
+    console.debug('updating');
     // user's timezone offset
     var tz = jstz.determine_timezone();
     var offset = parseInt(tz.utc_offset, 10);
@@ -167,13 +170,16 @@ function onTick() {
     var d = new Date();
     // @todo: adjust for timezone difference
     if(!sched || sched.date.getDay() !== d.getDay()) {
+        console.debug('fetching new schedule');
         // fetch the day's schedule
         fetchSchedule(d);
     } else {
         // show the current song
         var song = computeCurrentSong(d);
+        console.debug('current song', song);
         currentSong = song;
         if(song !== lastSong) {
+            console.debug('new song');
             lastSong = song;
             showCurrentSong(song);
         }
@@ -194,3 +200,5 @@ function onLoad() {
     onTick();
     setInterval(onTick, 30000);
 }
+
+$(onLoad);

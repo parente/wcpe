@@ -1,14 +1,15 @@
 /*
  * WCPE Chrome Playlist Extension
  *
- * Copyright 2011, Peter Parente. All rights reserved.
+ * Copyright 2011, 2013 Peter Parente. All rights reserved.
  * http://creativecommons.org/licenses/BSD/
  */
 function onSave() {
-    localStorage.notices = $('#notices').attr('checked') === 'checked';
+    localStorage.notices = $('#notices').prop('checked');
     localStorage.hideAfter = $('#hide_after').val();
-    localStorage.speech = $('#speech').attr('checked') === 'checked';
+    localStorage.speech = $('#speech').prop('checked');
     showStatus();
+    event.preventDefault();
 }
 
 function showStatus() {
@@ -21,4 +22,12 @@ function onLoad() {
     $('#hide_after').val(localStorage.hideAfter);
     tmp = localStorage.speech === 'true';
     $('#speech')[(tmp ? 'attr' : 'removeAttr')]('checked',true);
+
+    $('button[type="submit"]').on('click', onSave);
+    $('button[type="cancel"]').on('click', function(event) {
+        event.preventDefault();
+        window.close();
+    });
 }
+
+$(onLoad);

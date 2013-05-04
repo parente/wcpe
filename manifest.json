@@ -1,6 +1,7 @@
 {
+  "manifest_version": 2,
   "name": "__MSG_extName__",
-  "version": "0.1",
+  "version": "0.2",
   "description": "__MSG_extDescription__",
   "icons" : {
     "16" : "png/radio16.png",
@@ -12,7 +13,9 @@
     "default_popup" : "html/notice.html",
     "default_title" : "__MSG_extName__"
   },
-  "background_page": "html/background.html",
+  "background": {
+    "page": "html/background.html"
+  },
   "options_page": "html/options.html",
   "default_locale" : "en",
   "permissions": [
@@ -20,6 +23,7 @@
     "tabs",
     "background",
     "http://wcpe.org/*",
-    "http://*.arkivmusic.com/*"
+    "http://theclassicalstation.org/*",
+    "http://*.arkivmusic.com/"
   ]
 }
