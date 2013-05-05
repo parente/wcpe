@@ -25,7 +25,11 @@
     },
     "extListenLink" : {
         "message" : "Listen",
-        "description" : "Listen link text"
+        "description" : "Listen to stream link text"
+    },
+    "extSilenceLink" : {
+        "message" : "Silence",
+        "description" : "Silence the stream link text"
     },
     "extRequestsLink" : {
         "message" : "Requests",

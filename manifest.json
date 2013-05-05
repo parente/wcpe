@@ -14,11 +14,16 @@
     "default_title" : "__MSG_extName__"
   },
   "background": {
-    "page": "html/background.html"
+    "scripts": [
+      "js/jquery-1.9.1.min.js",
+      "js/detect_timezone.js",
+      "js/background.js"
+    ]
   },
   "options_page": "html/options.html",
   "default_locale" : "en",
   "permissions": [
+    "tts",
     "notifications",
     "tabs",
     "background",

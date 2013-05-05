@@ -10,6 +10,9 @@ var sched = null;
 var lastSong = null;
 var currentSong = null;
 var cols = ['program', 'time', 'link', 'composer', 'work', 'performer', 'label', 'stock', 'barcode'];
+var stream = new Audio();
+var streamListeners = $.Callbacks();
+var STREAM_URL = 'http://audio-ogg.ibiblio.org:8000/wcpe.ogg';
 
 function parseSchedule(html, date, url) {
     html = $(html);
@@ -87,18 +90,11 @@ function fetchSchedule(date) {
     });
 }
 
-function buildNotification(song) {
+function fetchSongIcon(song) {
     var def = new $.Deferred();
-    var resolve = function() {
-        var notice =  webkitNotifications.createHTMLNotification(
-            '../html/notice.html'
-        );
-        def.resolve(notice);
-    };
-
-    if(!song.link) {
-        // default icon
-        resolve();
+    if(!song.link || song.icon) {
+        // nothing to fetch
+        def.resolve();
         return def;
     }
 
@@ -106,20 +102,17 @@ function buildNotification(song) {
         url : song.link,
         dataType : 'html'
     }).fail(function() {
-        console.warn('failed to fetch arkivmusic');
         // default icon
-        resolve();
+        def.resolve();
     }).done(function(html) {
         // album art as icon
         html = $(html).not('script').not('link');
         var src = $('img[src*="covers"]', html).attr('src');
-        console.debug(src);
         if(src) {
             song.icon = src;
         }
-        resolve();
+        def.resolve();
     });
-
     return def;
 }
 
@@ -148,21 +141,40 @@ function computeCurrentSong(date) {
 
 function showCurrentSong(song) {
     if(localStorage.notices === 'true') {
-        buildNotification(song).done(function(notice) {
-            notice.show();
-            setTimeout(function() {
-                notice.cancel();
-            }, localStorage.hideAfter * 1000);
-        });
+        var notice =  webkitNotifications.createHTMLNotification(
+            '../html/notice.html'
+        );
+        notice.show();
+        setTimeout(function() {
+            notice.cancel();
+        }, localStorage.hideAfter * 1000);
     }
 
     if(localStorage.speech === 'true') {
-        speak(song.work + ' by ' + song.composer + '. Performed by ' + song.performer, { wordgap: 10 });
+        chrome.tts.speak(song.work + ' by ' + song.composer + '. Performed by ' + song.performer);
     }
 }
 
+function toggleStream() {
+    if(stream.src) {
+        console.debug('stopping stream');
+        stream.pause();
+        stream.src = null;
+    } else {
+        console.debug('starting stream');
+        stream.src = STREAM_URL;
+        stream.play();
+    }
+    // notify stream state change
+    streamListeners.fire(isStreamPlaying());
+}
+
+function isStreamPlaying() {
+    return !!(stream.src);
+}
+
 function onTick() {
-    console.debug('updating');
+    console.debug('updating state');
     // user's timezone offset
     var tz = jstz.determine_timezone();
     var offset = parseInt(tz.utc_offset, 10);
@@ -174,14 +186,15 @@ function onTick() {
         // fetch the day's schedule
         fetchSchedule(d);
     } else {
-        // show the current song
+        // determine current song
         var song = computeCurrentSong(d);
-        console.debug('current song', song);
         currentSong = song;
         if(song !== lastSong) {
-            console.debug('new song');
+            console.debug('new song detected');
             lastSong = song;
-            showCurrentSong(song);
+            fetchSongIcon(song).done(function() {
+                showCurrentSong(song);
+            });
         }
     }
 }
