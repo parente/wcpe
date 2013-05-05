@@ -4,7 +4,7 @@
         "description" : "Name of the extension"
     },
     "extDescription" : {
-        "message" : "Shows notifications of what's playing on WCPE",
+        "message" : "Shows and streams what's currently playing on WCPE 89.7 FM, The Classical Station",
         "description" : "Description of the extension"
     },
     "extDisabledTitle" : {
