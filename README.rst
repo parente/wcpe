@@ -28,7 +28,10 @@ All rights reserved.
 http://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt
 
 Early version of detect_timezone.js
-Provided under the Do Whatever You Want With This Code License
-by Jon Nylander.
+Provided under the Do Whatever You Want With This Code License by Jon Nylander.
 Newer version maintained at https://bitbucket.org/pellepim/jstimezonedetect
 under the MIT License.
+
+Radio Icon
+Placed into the Public Domain by gnokii.
+http://openclipart.org/detail/157951/radio-by-gnokii
