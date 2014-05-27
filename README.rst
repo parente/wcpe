@@ -16,7 +16,7 @@ Todo
 License
 =======
 
-Copyright (c) 2011, 2013 Peter Parente
+Copyright (c) 2011, 2014 Peter Parente
 All rights reserved.
 http://creativecommons.org/licenses/BSD/
 
