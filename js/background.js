@@ -156,7 +156,7 @@ function showCurrentSong(song) {
 }
 
 function toggleStream() {
-    if(stream.src) {
+    if(!stream.paused) {
         console.debug('stopping stream');
         stream.pause();
         stream.src = null;
@@ -170,7 +170,7 @@ function toggleStream() {
 }
 
 function isStreamPlaying() {
-    return !!(stream.src);
+    return !stream.paused;
 }
 
 function onTick() {
